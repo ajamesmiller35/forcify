@@ -1,0 +1,12 @@
+.THIS .slds-card__body{
+    background-color: #2b2b2b;
+}
+
+.THIS .white{
+    color: white;
+}
+
+.THIS .control-button{
+    height: 32px;
+    padding: 10px;
+}

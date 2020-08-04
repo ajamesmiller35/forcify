@@ -1,0 +1,40 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,flexipage:availableForAllPageTypes" access="global">
+    <ltng:require scripts="{!$Resource.SpotifyPlayer}" />
+    <aura:handler name="init" value="{!this}" action="{!c.initialize}"/>
+    <aura:attribute name="token" type="String" default=""/>
+    <aura:attribute name="needAuth" type="Boolean" default="true"/>
+    <aura:attribute name="currentTrack" type="Object"/>
+    <aura:attribute name="playlists" type="Object[]"/>
+	<html>
+    <head>
+      <title>Forcify</title>
+    </head>
+    <body>
+      <lightning:card>
+        <h1 class="white">Forcify Web Player</h1>
+        <aura:if isTrue="{! v.needAuth }">
+            <lightning:button label="Log In" title="Log In" onclick="{! c.auth }"/>
+            <br/>
+            <aura:set attribute="else">
+                <img src="{! v.currentTrack.album.images[0].url }"/>
+                <p class="white">{! v.currentTrack.name }</p>
+                <p class="white">{! v.currentTrack.album.name }</p>
+                <p class="white">{! v.currentTrack.artists[0].name }</p>
+                <!--<lightning:button label="Previous" title="Previous" onclick="{! c.previous }"/>
+                <lightning:button label="Pause" title="Pause" onclick="{! c.pause }"/>
+                <lightning:button label="Play" title="Play" onclick="{! c.play }"/>
+                <lightning:button label="Next" title="Next" onclick="{! c.next }"/>-->
+                <img class="control-button" src="{! $Resource.PreviousIcon }" onclick="{! c.previous }"/>
+                <img class="control-button" src="{! $Resource.PauseIcon }" onclick="{! c.pause }"/>
+                <img class="control-button" src="{! $Resource.PlayIcon }" onclick="{! c.play }"/>
+                <img class="control-button" src="{! $Resource.NextIcon }" onclick="{! c.next }"/>
+                <h1>My Playlists</h1>
+                <aura:iteration items="{! v.playlists }" var="playlist">
+                	<p id="{! playlist.uri }" onclick="{! c.playThisList }" class="white">{! playlist.name }</p>
+                </aura:iteration>
+            </aura:set>
+        </aura:if>
+      </lightning:card>
+    </body>
+    </html>
+</aura:component>
